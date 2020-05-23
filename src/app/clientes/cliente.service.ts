@@ -9,20 +9,27 @@ import {map} from 'rxjs/operators';
 @Injectable()
 export class ClienteService {
 
-  private urlEndoPoint:string = 'http://localhost:8080/api/cliente/all';
-  private urlEndopointCreate: string = 'http://localhost:8080/api/cliente';
+  private urlEndPoint: string = 'http://localhost:8080/api/cliente';
   private httpHeaders = new HttpHeaders({'Content-Type':'application/json'})
 
   constructor(private http: HttpClient) { }
 
   getClientes(): Observable<Cliente[]> {
-    return this.http.get(this.urlEndoPoint).pipe(
+    return this.http.get(`${this.urlEndPoint}/all`).pipe(
       map(response => response as Cliente[])
     );
   }
 
   create(cliente: Cliente) : Observable<Cliente> {
-    return this.http.post<Cliente>(this.urlEndopointCreate,cliente,{headers: this.httpHeaders})
+    return this.http.post<Cliente>(this.urlEndPoint,cliente,{headers: this.httpHeaders})
+  }
+
+  getCliente(id): Observable<Cliente>{
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`)
+  }
+
+  update(cliente: Cliente): Observable<Cliente>{
+    return this.http.put<Cliente>(this.urlEndPoint,cliente,{headers: this.httpHeaders})
   }
   
 }

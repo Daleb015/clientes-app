@@ -10,6 +10,7 @@ import { ClienteService } from './clientes/cliente.service';
 import {RouterModule, Routes, Router} from '@angular/router';
 import { FormComponent } from './clientes/form.component';
 import { FormsModule } from '@angular/forms';
+import { from } from 'rxjs';
 
 const routes: Routes = [
   {path: '', redirectTo: '/clientes', pathMatch: 'full'},

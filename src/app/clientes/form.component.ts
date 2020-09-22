@@ -38,12 +38,12 @@ export class FormComponent implements OnInit {
       cliente => {
         this.router.navigate(['/clientes'])
         swal('Cliente Guardado',`El cliente ${cliente.nombre} ha sido creado con exito`, 'success')
-      }/* ,
+      },
       err => {
         this.errores = err.error.errors as string[]
         console.error(err.error.errors)
         console.error('codigo de error '+err.status)
-      } */
+      }
     )
   }
 
@@ -53,12 +53,12 @@ export class FormComponent implements OnInit {
       response => {
         this.router.navigate(['/clientes'])
         swal('Cliente actualizado',`${response.mensaje}: ${response.cliente.nombre}`,'success')
-      }/* ,
+      },
       err => {
         this.errores = err.error.errors as string[]
         console.error(err.error.errors)
         console.error('codigo de error '+err.status)
-      } */
+      }
     )
   }
 

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { from } from 'rxjs';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es'
+import { LOCALE_ID } from '@angular/core';
 
 registerLocaleData(localeES,'es');
 
@@ -39,7 +40,7 @@ const routes: Routes = [
     HttpClientModule,
     FormsModule
   ],
-  providers: [ClienteService],
+  providers: [ClienteService,{provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

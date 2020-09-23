@@ -23,8 +23,8 @@ export class ClienteService {
         let clientes = response as Cliente[];
         return clientes.map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
-          let datePipe = new DatePipe('es');
-          cliente.createAt =  datePipe.transform(cliente.createAt,'EEEE dd, MMMM yyyy')   //formatDate(cliente.createAt,'dd-MM-yyyy','en-US');
+          //let datePipe = new DatePipe('es');
+          //cliente.createAt =  datePipe.transform(cliente.createAt,'EEEE dd, MMMM yyyy')   //formatDate(cliente.createAt,'dd-MM-yyyy','en-US');
           return cliente;
         });
       }));

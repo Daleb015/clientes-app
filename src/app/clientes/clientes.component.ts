@@ -2,23 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
+import { tap } from 'rxjs/Operators';
 
 @Component({
   selector: 'app-clientes',
-  templateUrl: './clientes.component.html'
+  templateUrl: './clientes.component.html',
 })
 export class ClientesComponent implements OnInit {
-
   clientes: Cliente[];
 
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService) {}
 
   ngOnInit() {
-    this.clienteService.getClientes().subscribe(
-      clientes => this.clientes = clientes
-    );
-  }
+    this.clienteService
+      .getClientes().pipe(
 
+        tap(clientes => {
+          console.log('Tap clientes component 3');
+          clientes.forEach(cliente=>console.log(cliente))
+          this.clientes=clientes
+        }
+        )
+      )
+      .subscribe();
+  }
 
   delete(cliente: Cliente): void {
     swal({
@@ -33,25 +40,19 @@ export class ClientesComponent implements OnInit {
       confirmButtonClass: 'btn btn-success',
       cancelButtonClass: 'btn btn-danger',
       buttonsStyling: false,
-      reverseButtons: true
+      reverseButtons: true,
     }).then((result) => {
       if (result.value) {
-        this.clienteService.delete(cliente.id).subscribe(
-          response => {
+        this.clienteService.delete(cliente.id).subscribe((response) => {
+          this.clientes = this.clientes.filter((cli) => cli !== cliente);
 
-            this.clientes = this.clientes.filter(cli => cli !== cliente)
-
-            swal(
-              'Cliente borrado!',
-              `Cliente ${cliente.nombre} eliminado`,
-              'success'
-            )
-          }
-        )
+          swal(
+            'Cliente borrado!',
+            `Cliente ${cliente.nombre} eliminado`,
+            'success'
+          );
+        });
       }
-    }
-
-    )
+    });
   }
-
 }

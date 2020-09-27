@@ -15,6 +15,9 @@ import { from } from 'rxjs';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es'
 import { LOCALE_ID } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 
 registerLocaleData(localeES,'es');
@@ -42,7 +45,10 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   providers: [ClienteService,{provide: LOCALE_ID, useValue: 'es' }],
   bootstrap: [AppComponent]

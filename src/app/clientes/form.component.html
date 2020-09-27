@@ -29,7 +29,7 @@
           <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido" required #apellido="ngModel">
           <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
             <div *ngIf="apellido.errors.required">
-              Nombre es requerido
+              Apellido es requerido
             </div>
 
           </div>
@@ -47,6 +47,22 @@
             <div *ngIf="email.errors.email">
               email es erroneo
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="apellido" class="col-form-label col-sm-2">Fecha Registro</label>
+        <div class="col-sm-6">
+          <input matInput [matDatepicker]="picker" class="form-control" [(ngModel)]="cliente.createAt" name="createAt" required #createAt="ngModel" style="display: inline; width:300px;" >
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+          <div class="alert alert-danger" *ngIf="createAt.invalid && (createAt.dirty || createAt.touched)">
+            <div *ngIf="createAt.errors.required">
+              Fecha Creacion es requerido
+            </div>
+
           </div>
         </div>
       </div>

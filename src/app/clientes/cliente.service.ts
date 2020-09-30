@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { formatDate, DatePipe, registerLocaleData } from '@angular/common';
-import { CLIENTES } from './clientes.json';
 import { Cliente } from './cliente';
 import { Observable } from 'rxjs';
 import { of, throwError } from 'rxjs';
@@ -98,5 +97,19 @@ export class ClienteService {
           return throwError(e);
         })
       );
+  }
+
+  subirFoto(archivo: File, id:any): Observable<Cliente>{
+    let formData = new FormData();
+    formData.append("archivo",archivo);
+    formData.append("id",id);
+    return this.http.post(`${this.urlEndPoint}/upload/`, formData).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError( e => {
+        console.error(e.error.mensaje);
+        swal(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+      })
+    );
   }
 }

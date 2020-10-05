@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import swal from 'sweetalert2';
-import { tap } from 'rxjs/Operators';
+import { map, tap } from 'rxjs/Operators';
 import { ActivatedRoute } from '@angular/router';
 import { ModalService } from './detalle/modal.service';
 
@@ -43,6 +43,16 @@ export class ClientesComponent implements OnInit {
           }
         );
     });
+
+    this.modalService.notificarUpload.subscribe(cliente => {
+      this.clientes.map(clienteOriginal => {
+        if (cliente.id == clienteOriginal.id) {
+          clienteOriginal.foto = cliente.foto
+        }
+        return clienteOriginal;
+      })
+    })
+
   }
 
   delete(cliente: Cliente): void {

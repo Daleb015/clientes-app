@@ -28,6 +28,11 @@ export class ClienteService {
 
   isNoAuthorized(e): boolean{
     if (e.status==401) {
+
+      if (this.authService.isAuthenticathed()) {
+        this.authService.logout();
+      }
+
       this.router.navigate(['/login'])
       return true;
     }

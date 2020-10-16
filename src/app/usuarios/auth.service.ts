@@ -95,6 +95,13 @@ export class AuthService {
 
   }
 
+  hasRole(role: string):boolean{
+    if (this.usuario.roles.includes(role)) {
+      return true;
+    }
+    return false;
+  }
+
   logout(){
 
     swal('Logout',`${this.usuario.username} has cerrado sesion con exito`,'success');

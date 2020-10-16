@@ -2,7 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ɵangular_packages_platform_browser_animations_animations_a } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
+import swal from 'sweetalert2';
 import { Usuario } from './usuario';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class AuthService {
   private _usuario: Usuario;
   private _token: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public get usuario():Usuario{
     if (this._usuario!=null) {
@@ -92,4 +94,18 @@ export class AuthService {
     return false;
 
   }
+
+  logout(){
+
+    swal('Logout',`${this.usuario.username} has cerrado sesion con exito`,'success');
+
+    this._token = null;
+    this._usuario = null;
+
+    sessionStorage.clear();
+
+    this.router.navigate(['/login']);
+
+  }
+
 }

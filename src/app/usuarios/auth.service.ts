@@ -86,7 +86,6 @@ export class AuthService {
     let payload = this.obtenerDatosToken(this.token)
 
     if (payload!=null&&payload.user_name&&payload.user_name.length>0) {
-      console.log(`Usuario ${payload.user_name} ya esta autenticado`)
       return true;
     }
 

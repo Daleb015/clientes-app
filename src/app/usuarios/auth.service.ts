@@ -59,13 +59,14 @@ export class AuthService {
 
   guardarUsuario(token: string) {
     let datosToken = this.obtenerDatosToken(token);
-
+    console.log(datosToken)
     this._usuario = new Usuario();
-    this._usuario.nombre = datosToken.nombre;
-    this._usuario.apellido = datosToken.apellido;
-    this._usuario.email = datosToken.email;
+    this._usuario.nombre = datosToken.nombre_usuario;
+    this._usuario.apellido = datosToken.apellido_usuario;
+    this._usuario.email = datosToken.email_usuario;
     this._usuario.username = datosToken.user_name;
     this._usuario.roles = datosToken.authorities;
+    console.log(JSON.stringify(this._usuario))
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 
@@ -79,5 +80,17 @@ export class AuthService {
       return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
+  }
+
+  isAuthenticathed(): boolean{
+    let payload = this.obtenerDatosToken(this.token)
+
+    if (payload!=null&&payload.user_name&&payload.user_name.length>0) {
+      console.log(`Usuario ${payload.user_name} ya esta autenticado`)
+      return true;
+    }
+
+    return false;
+
   }
 }

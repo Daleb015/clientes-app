@@ -26,12 +26,7 @@ export class ClienteService {
 
   getClientes(page: number): Observable<any> {
     return this.http.get(`${this.urlEndPoint}/page/${page}`).pipe(
-      tap((response: any) => {
-        (response.content as Cliente[]).forEach((cliente) =>
-          console.log(cliente.nombre)
-        );
-      }),
-      map((response: any) => {
+       map((response: any) => {
         (response.content as Cliente[]).map((cliente) => {
           cliente.nombre = cliente.nombre.toUpperCase();
           //let datePipe = new DatePipe('es');
@@ -40,11 +35,6 @@ export class ClienteService {
         });
         return response;
       }),
-      tap((response) => {
-        (response.content as Cliente[]).forEach((cliente) =>
-          console.log(cliente.nombre)
-        );
-      })
     );
   }
 

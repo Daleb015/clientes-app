@@ -29,13 +29,6 @@ export class ClientesComponent implements OnInit {
       }
       this.clienteService
         .getClientes(page)
-        .pipe(
-          tap((response) => {
-            (response.content as Cliente[]).forEach((cliente) =>
-              console.log(cliente.nombre)
-            );
-          })
-        )
         .subscribe(
           (response) => {
             (this.clientes = response.content as Cliente[]);

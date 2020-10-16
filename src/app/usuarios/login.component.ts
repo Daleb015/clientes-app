@@ -38,7 +38,16 @@ export class LoginComponent implements OnInit {
         `Hola ${usuario.username} has iniciado sesión con exito!`,
         'success'
       );
-    });
+    }, err => {
+      if (err.status==400) {
+        swal(
+          'Error login',
+          'Usuario o clave incorrecta, vuelva a intentar!',
+          'error'
+        );
+      }
+    }
+    );
   }
 
 }

@@ -81,9 +81,10 @@ export class ClienteService {
   getCliente(id): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError((e) => {
-        this.router.navigate(['/clientes']);
-        console.error(e.error.mensaje);
-        swal(e.error.mensaje, e.error.error, 'error');
+        if (e.status != 401 && e.error.mensaje) {
+          this.router.navigate(['/clientes']);
+          console.error(e.error.mensaje);
+        }
         return throwError(e);
       })
     );

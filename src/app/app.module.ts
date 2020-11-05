@@ -57,7 +57,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatMomentDateModule
   ],
-  providers: [ClienteService, { provide: LOCALE_ID, useValue: 'es' },
+  providers: [ClienteService,
+    { provide: LOCALE_ID, useValue: 'es' },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })

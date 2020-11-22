@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { flatMap, map, startWith } from 'rxjs/operators';
 import { ClienteService } from '../clientes/cliente.service';
 import { Factura } from './models/factura';
+import { ItemFactura } from './models/item-factura';
 import { Producto } from './models/producto';
 import { FacturaService } from './services/factura.service';
 
@@ -13,7 +15,6 @@ import { FacturaService } from './services/factura.service';
   templateUrl: './facturas.component.html',
 })
 export class FacturasComponent implements OnInit {
-
   titulo: string = 'nueva factura';
   factura: Factura = new Factura();
 
@@ -34,10 +35,9 @@ export class FacturasComponent implements OnInit {
         .getCliente(clienteId)
         .subscribe((cliente) => (this.factura.cliente = cliente));
     });
-    this.productosFiltrados = this.autoCompleteControl.valueChanges
-    .pipe(
-      map(value => typeof value === 'string'? value: value.nombre),
-      flatMap(value => value ? this._filter(value): [])
+    this.productosFiltrados = this.autoCompleteControl.valueChanges.pipe(
+      map((value) => (typeof value === 'string' ? value : value.nombre)),
+      flatMap((value) => (value ? this._filter(value) : []))
     );
   }
 
@@ -47,8 +47,30 @@ export class FacturasComponent implements OnInit {
     return this.facturaService.filtrarProductos(value);
   }
 
-  mostrarNombre(producto?: Producto): string | undefined{
-    return producto? producto.nombre: undefined;
+  mostrarNombre(producto?: Producto): string | undefined {
+    return producto ? producto.nombre : undefined;
   }
 
+  seleccionarProducto(event: MatAutocompleteSelectedEvent): void {
+    let producto = event.option.value as Producto;
+
+    let nuevoItem = new ItemFactura();
+    nuevoItem.producto = producto;
+    this.factura.items.push(nuevoItem);
+
+    this.autoCompleteControl.setValue('');
+    event.option.focus();
+    event.option.deselect();
+  }
+
+  actualizarCantidad(id: string, event: any): void {
+    let cantidad: number = event.target.value as number;
+
+    this.factura.items = this.factura.items.map((item: ItemFactura) => {
+      if (id === item.producto.id) {
+        item.cantidad = cantidad;
+      }
+      return item;
+    });
+  }
 }

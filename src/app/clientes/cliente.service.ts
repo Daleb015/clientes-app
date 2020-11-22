@@ -9,10 +9,11 @@ import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Region } from './region';
 import { AuthService } from '../usuarios/auth.service';
+import { URL_BACKEND } from '../config/config';
 
 @Injectable()
 export class ClienteService {
-  private urlEndPoint: string = 'http://localhost:8080/api/clientes';
+  private urlEndPoint: string = URL_BACKEND+'/api/clientes';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
@@ -28,21 +29,21 @@ export class ClienteService {
 
   /*   isNoAuthorized(e): boolean {
       if (e.status == 401) {
-  
+
         if (this.authService.isAuthenticathed()) {
           this.authService.logout();
         }
-  
+
         this.router.navigate(['/login'])
         return true;
       }
-  
+
       if (e.status == 403) {
         swal('Accesso Denegado', `${this.authService.usuario.username} No tiene acceso a esta función`, 'warning')
         this.router.navigate(['/clientes'])
         return true;
       }
-  
+
       return false;
     } */
 

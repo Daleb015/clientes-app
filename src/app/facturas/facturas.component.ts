@@ -53,7 +53,6 @@ export class FacturasComponent implements OnInit {
 
   seleccionarProducto(event: MatAutocompleteSelectedEvent): void {
     let producto = event.option.value as Producto;
-
     if (this.existeItem(producto.id)) {
       this.incrementaCantidad(producto.id);
     } else {
@@ -69,6 +68,9 @@ export class FacturasComponent implements OnInit {
 
   actualizarCantidad(id: string, event: any): void {
     let cantidad: number = event.target.value as number;
+    if (cantidad == 0) {
+      return this.eliminarItemFactura(id);
+    }
 
     this.factura.items = this.factura.items.map((item: ItemFactura) => {
       if (id === item.producto.id) {
@@ -96,6 +98,12 @@ export class FacturasComponent implements OnInit {
         ++item.cantidad;
       }
       return item;
+    });
+  }
+
+  eliminarItemFactura(id: string) {
+    this.factura.items = this.factura.items.filter((item: ItemFactura) => {
+      id !== item.producto.id;
     });
   }
 }

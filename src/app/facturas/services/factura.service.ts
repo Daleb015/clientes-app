@@ -14,6 +14,10 @@ export class FacturaService {
 
   constructor(private http: HttpClient) { }
 
+  create(factura: Factura): Observable<Factura>{
+    return this.http.post<Factura>(`${this.urlEndpoint}/facturas`,factura);
+  }
+
   getFactura(id: string):Observable<Factura>{
     return this.http.get<Factura>(`${this.urlEndpoint}/facturas/${id}`);
   }

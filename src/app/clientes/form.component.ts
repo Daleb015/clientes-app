@@ -46,8 +46,6 @@ export class FormComponent implements OnInit {
       },
       err => {
         this.errores = err.error.errors as string[]
-        console.error(err.error.errors)
-        console.error('codigo de error '+err.status)
       }
     )
   }
@@ -61,8 +59,6 @@ export class FormComponent implements OnInit {
       },
       err => {
         this.errores = err.error.errors as string[]
-        console.error(err.error.errors)
-        console.error('codigo de error '+err.status)
       }
     )
   }

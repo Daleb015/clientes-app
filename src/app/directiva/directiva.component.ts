@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DirectivaComponent {
 
-  listaCurso: string[] = ['Html','Php','Javascript','Angular'];
+  listaCurso: string[] = ['Reactive','MathAutoComplete','Angular Material','Angular forms','Angular Routing', 'Angular Guard','Angular Material Animations','Angular Material Autocomplete'];
   habilitar: boolean = true;
   constructor() { }
 

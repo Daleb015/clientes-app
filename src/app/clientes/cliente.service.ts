@@ -18,35 +18,6 @@ export class ClienteService {
 
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
-  /*   addAuthHeader(){
-      if (this.authService.token!=null) {
-        let token = this.authService.token;
-        return this.httpHeaders.append('Authorization','Bearer '+token);
-      }else{
-        return this.httpHeaders;
-      }
-    } */
-
-  /*   isNoAuthorized(e): boolean {
-      if (e.status == 401) {
-
-        if (this.authService.isAuthenticathed()) {
-          this.authService.logout();
-        }
-
-        this.router.navigate(['/login'])
-        return true;
-      }
-
-      if (e.status == 403) {
-        swal('Accesso Denegado', `${this.authService.usuario.username} No tiene acceso a esta función`, 'warning')
-        this.router.navigate(['/clientes'])
-        return true;
-      }
-
-      return false;
-    } */
-
   getClientes(page: number): Observable<any> {
     return this.http.get(`${this.urlEndPoint}/page/${page}`).pipe(
       map((response: any) => {
@@ -72,7 +43,7 @@ export class ClienteService {
             return throwError(e);
           }
 
-          console.error(e.error.mensaje);
+
           swal(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
@@ -84,7 +55,7 @@ export class ClienteService {
       catchError((e) => {
         if (e.status != 401 && e.error.mensaje) {
           this.router.navigate(['/clientes']);
-          console.error(e.error.mensaje);
+
         }
         return throwError(e);
       })
@@ -99,7 +70,6 @@ export class ClienteService {
           if (e.status == 400) {
             return throwError(e);
           }
-          console.error(e.error.mensaje);
           swal(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })
@@ -111,7 +81,6 @@ export class ClienteService {
       .delete<Cliente>(`${this.urlEndPoint}/${id}`)
       .pipe(
         catchError((e) => {
-          console.error(e.error.mensaje);
           swal(e.error.mensaje, e.error.error, 'error');
           return throwError(e);
         })

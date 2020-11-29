@@ -69,7 +69,7 @@ export class AuthService {
     this._usuario.email = datosToken.email_usuario;
     this._usuario.username = datosToken.user_name;
     this._usuario.roles = datosToken.authorities;
-    console.log(JSON.stringify(this._usuario))
+
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 

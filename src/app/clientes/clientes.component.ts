@@ -28,7 +28,6 @@ export class ClientesComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
       if (!page) {
-        console.log(`No existe page, se inicializa a 0`)
         page = 0;
       }
       this.clienteService
